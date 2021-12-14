@@ -1,10 +1,22 @@
+import {useState, useEffect} from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Header from './components/Header';
+import Posts from './components/Posts';
+import Login from './components/Login';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello App!</h1>
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Posts />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

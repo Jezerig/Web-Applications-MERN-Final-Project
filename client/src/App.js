@@ -1,8 +1,8 @@
-import {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Header from './components/Header';
 import Posts from './components/Posts';
 import Login from './components/Login';
+import Register from './components/Register';
 import './App.css';
 
 function App() {

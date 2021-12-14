@@ -4,6 +4,8 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require("../models/User");
+//Source to fix jwt TypeError: https://stackoverflow.com/questions/45525077/nodejs-typeerrorjwtstrategy-requires-a-secret-or-key/50787319
+require('dotenv').config();
 
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();

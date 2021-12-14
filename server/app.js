@@ -6,12 +6,12 @@ const mongoose = require("mongoose");
 var cors = require('cors');
 
 
-const mongoDB = "mongodb://localhost:27017/testdb";
+const mongoDB = "mongodb://localhost:27017/webappdb";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
-
+ 
 var apiRouter = require('./routes/api');
 var app = express();
 

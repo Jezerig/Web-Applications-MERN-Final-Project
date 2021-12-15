@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 let commentSchema = new Schema ({
     username: {type: String},
     userid: {type: String},
+    postid: {type: String},
     lastedited: {type: Date, default: Date.now},
     text: {type: String}
 });

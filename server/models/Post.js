@@ -7,7 +7,8 @@ let postSchema = new Schema ({
     userid: {type: String},
     lastedited: {type: Date, default: Date.now},
     title: {type: String},
-    text: {type: String}
+    text: {type: String},
+    comments: {type: Array}
 });
 
 module.exports = mongoose.model("posts", postSchema);

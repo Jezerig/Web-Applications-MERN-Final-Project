@@ -6,7 +6,7 @@ let userSchema = new Schema ({
     username: {type: String},
     email: {type: String},
     password: {type: String},
-    bio: {type: String},
+    bio: {type: String, default: 'No bio.'},
     registerdate: {type: Date, default: Date.now},
     admin: {type: Boolean}
 });

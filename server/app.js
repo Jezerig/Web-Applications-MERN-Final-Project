@@ -23,7 +23,6 @@ app.use(cookieParser());
 
 app.use('/api', apiRouter);
 
-
 if(process.env.NODE_ENV === "production") {
     app.use(express.static(path.resolve("..", "client", "build")));
     app.get("*", (req, res) =>

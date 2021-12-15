@@ -16,7 +16,7 @@ require('../auth/passport')(passport)
 router.use(passport.initialize());
 
 
-router.post('/login',
+router.post('/user/login',
   upload.none(),
   body("email").trim().escape(),
   body("password"),
@@ -51,7 +51,7 @@ router.post('/login',
     })
 });
 
-router.post('/register', 
+router.post('/user/register', 
   body("email").trim().isEmail().escape(),
   body("password").isStrongPassword().withMessage('Password is not strong enough'),
   (req, res, next) => {
@@ -75,6 +75,7 @@ router.post('/register',
                 username: req.body.username,
                 email: req.body.email,
                 password: hash,
+                bio: req.body.bio,
                 admin: 0
               },
               (err, ok) => {

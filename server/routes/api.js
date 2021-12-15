@@ -9,7 +9,8 @@ const jwt = require("jsonwebtoken");
 const passport = require('passport');
 const multer = require("multer")
 const storage = multer.memoryStorage();
-const upload = multer({storage})
+const upload = multer({storage});
+const Post = require("../models/Post");
 
 require('../auth/passport')(passport)
 //source: https://stackoverflow.com/questions/60034257/typeerror-req-login-is-not-a-function-passport-js
@@ -89,5 +90,28 @@ router.post('/user/register',
     });
 });
 
+router.post('/newpost', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+  new Post({
+      username: req.user.username,
+      userid: req.user._id,
+      title: req.body.title,
+      text:req.body.text,
+      comments: []
+  }).save((err) => {
+      if(err) return next(err);
+      return res.send("ok");
+  });
+});
+
+router.get('/posts', (req, res, next) => {
+  Post.find({}, (err, posts) => {
+    if (err) return next(err)
+    if (posts) {
+        return res.send(posts);
+    } else {
+        return res.send("No posts.");
+    }
+  });
+});
 
 module.exports = router;

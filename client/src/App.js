@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Posts from './components/Posts';
 import Login from './components/Login';
 import Register from './components/Register';
+import Createpost from './components/Createpost';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Posts />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/createpost" element={<Createpost />} />
         </Routes>
       </div>
     </Router>

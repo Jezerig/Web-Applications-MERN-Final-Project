@@ -26,6 +26,7 @@ return (
                     <Button component={RouterLink} to="/" color="inherit">Posts</Button>
                     {!loggedIn && <Button component={RouterLink} to="/login" color="inherit">Login</Button>}
                     {!loggedIn && <Button component={RouterLink} to="/register" color="inherit">Register</Button>}
+                    {loggedIn && <Button component={RouterLink} to="/createpost" color="inherit">Create Post</Button>}
                     {loggedIn && <Button color="inherit">My Profile</Button>}
                     {loggedIn && <Button onClick={logout} color="inherit">Logout</Button>}
                 </Toolbar>

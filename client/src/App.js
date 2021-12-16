@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Createpost from './components/Createpost';
 import PostPage from './components/PostPage';
+import Userpage from './components/UserPage';
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/createpost" element={<Createpost />} />
           <Route path="/post/:postid" element={<PostPage />} />
+          <Route path="/user/:userid" element={<Userpage />} />
         </Routes>
       </div>
     </Router>

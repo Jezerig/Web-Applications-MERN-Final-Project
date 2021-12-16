@@ -1,6 +1,6 @@
-import React from 'react'
 import {useState, useEffect} from 'react';
 import Post from './Post';
+
 function Posts() {
     const [posts, setPosts] = useState([{
         "_id": null,

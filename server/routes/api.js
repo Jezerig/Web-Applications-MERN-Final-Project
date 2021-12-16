@@ -149,4 +149,15 @@ router.get("/post/:id", (req, res, next) => {
   });
 })
 
+router.get("/user/:id", (req, res, next) => {
+  User.findOne({_id : req.params.id}, (err, user) => {
+      if(err) return next(err);
+      if(user) {
+          return res.send(user);
+      } else {
+          return res.status(404).send("Error loading user.");
+      }
+  });
+})
+
 module.exports = router;

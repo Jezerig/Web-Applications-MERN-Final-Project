@@ -5,7 +5,7 @@ function Comment({comment}) {
     const navigate = useNavigate();
     return (
         <div>
-            <p id={comment.userid} onClick={() => navigate('/users/' + comment.userid)}>{comment.username}</p>
+            <p id={comment.userid} onClick={() => navigate('/user/' + comment.userid)}>{comment.username}</p>
             <p>{comment.text}</p>
         </div>
     )

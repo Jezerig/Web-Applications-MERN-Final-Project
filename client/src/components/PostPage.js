@@ -2,8 +2,10 @@ import React from 'react'
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Comment from './Comment';
+import {useNavigate} from 'react-router-dom';
 
 function PostPage() {
+    const navigate = useNavigate();
     let loggedIn = false;
     if(localStorage.getItem('token')) {
         loggedIn = true;
@@ -95,7 +97,7 @@ function PostPage() {
     return (
         <div>
             <div>
-                <p>{post.username}</p>
+                <p onClick={() => navigate('/user/' + post.userid)}>{post.username}</p>
                 <h1>{post.title}</h1>
                 <p>{post.text}</p>
                 <p>{post.lastedited}</p>

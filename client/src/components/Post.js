@@ -5,7 +5,7 @@ function Post({post}) {
     const navigate = useNavigate();
     return (
         <div onClick={() => navigate('/post/' + post._id.toString())}>
-            <p id={post.userid}>{post.username}</p>
+            <p onClick={() => navigate('/user/' + post.userid)}>{post.username}</p>
             <p>{post.title}</p>
         </div>
     )

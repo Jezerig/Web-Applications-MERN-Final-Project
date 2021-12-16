@@ -58,42 +58,24 @@ function Login() {
     return (
         <div>
             <ToastContainer />
-            {/* {!loggedIn && <h1>Login</h1>}
+            {!loggedIn && <h1>Login</h1>}
             {loggedIn && <h1>You're already logged in.</h1>}
-            {!loggedIn && <div>
-                <form onSubmit={submit} onChange={handleChange}>
-                    <label>Email<input type="text" name="email" required/></label>
-                    <label>Password<input type="password" name="password" required/></label>
-                    <input type="submit" />
-                </form>
+            {!loggedIn && 
+            <div>
+                <Form onSubmit={submit} onChange={handleChange}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control  name="email" type="email" placeholder="Enter email" required/>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control name="password" type="password" placeholder="Password" required/>
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
             </div>}
-                 */}
-        {!loggedIn && <h1>Login</h1>}
-        {loggedIn && <h1>You're already logged in.</h1>}
-        {!loggedIn && <div>
-            <Form onSubmit={submit}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control  name="email" type="email" placeholder="Enter email" onChange={handleChange}/>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control name="password" type="password" placeholder="Password" onChange={handleChange}/>
-                    <Form.Text className="text-muted">
-                    <li>Password requirements:</li>
-                    <ul>
-                        <li>at least one lowercase letter</li>
-                        <li>at least one uppercase letter</li>
-                        <li>at least one number</li>
-                        <li>at least one symbol</li>
-                    </ul>
-                    </Form.Text>
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-            </Form>
-        </div>}
         </div>
     )
 }

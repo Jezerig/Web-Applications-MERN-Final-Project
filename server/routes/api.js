@@ -17,20 +17,25 @@ require('../auth/passport')(passport)
 //source: https://stackoverflow.com/questions/60034257/typeerror-req-login-is-not-a-function-passport-js
 router.use(passport.initialize());
 
+//routes for '/api/*'
 
+//login route
 router.post('/user/login',
   upload.none(),
   body("email").trim().escape(),
   body("password"),
   (req, res, next) => {
+    //checks if user exists with email
     User.findOne({email: req.body.email}, (err, user) =>{
     if(err) throw err;
     if(!user) {
       return res.send({success: false, message: "Invalid credentials"});
     } else {
+      //compares crypted password
       bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
         if(err) throw err;
         if(isMatch) {
+          //creates JWT
           const jwtPayload = {
             id: user._id,
             username: user.username,
@@ -40,7 +45,7 @@ router.post('/user/login',
             jwtPayload,
             process.env.SECRET,
             {
-              expiresIn: 6000
+              expiresIn: 6000 //expires on 6000s and log in is needed again.
             },
             (err, token) => {
               res.json({success: true, token});
@@ -54,8 +59,11 @@ router.post('/user/login',
     })
 });
 
+//register route
 router.post('/user/register', 
+  //checks that email is correct format
   body("email").trim().isEmail().escape(),
+  //checks that password meets the requirements (express-authenticator)
   body("password").isStrongPassword().withMessage('Password is not strong enough'),
   (req, res, next) => {
     const errors = validationResult(req);
@@ -71,6 +79,8 @@ router.post('/user/register',
       if(user){
         return res.status(403).json({success: false, message: "Email or Username already in use"});
       } else {
+        //if user doesn't exist creates new user
+        //creates password hash and salts it
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(req.body.password, salt, (err, hash) => {
             if(err) throw err;
@@ -92,7 +102,7 @@ router.post('/user/register',
       }
     });
 });
-
+//creates new post if user is authenticated
 router.post('/newpost', passport.authenticate('jwt', {session: false}), (req, res, next) => {
   new Post({
       username: req.user.username,
@@ -105,6 +115,7 @@ router.post('/newpost', passport.authenticate('jwt', {session: false}), (req, re
   });
 });
 
+//creates new comment if user is authenticated
 router.post('/addcomment', passport.authenticate('jwt', {session: false}), (req, res, next) => {
   new Comment({
       username: req.user.username,
@@ -117,7 +128,7 @@ router.post('/addcomment', passport.authenticate('jwt', {session: false}), (req,
   });
 });
 
-
+//finds all posts in db
 router.get('/posts', (req, res, next) => {
   Post.find({}, (err, posts) => {
     if (err) return next(err)
@@ -129,6 +140,7 @@ router.get('/posts', (req, res, next) => {
   });
 });
 
+//finds all comments for postid from db
 router.get("/comment/:id", (req, res, next) => {
   Comment.find({'postid' : req.params.id}, (err, comments) => {
       if(err) return next(err);
@@ -140,6 +152,7 @@ router.get("/comment/:id", (req, res, next) => {
   });
 })
 
+//finds post with spesific id
 router.get("/post/:id", (req, res, next) => {
   Post.findOne({_id : req.params.id}, (err, post) => {
       if(err) return next(err);
@@ -151,6 +164,7 @@ router.get("/post/:id", (req, res, next) => {
   });
 })
 
+//finds user with spesific id
 router.get("/user/:id", (req, res, next) => {
   User.findOne({_id : req.params.id}, (err, user) => {
       if(err) return next(err);

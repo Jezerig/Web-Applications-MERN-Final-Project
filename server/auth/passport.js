@@ -1,6 +1,6 @@
 //source: http://www.passportjs.org/packages/passport-jwt/#extracting-the-jwt-from-the-request
 //source: https://www.youtube.com/watch?v=Ne0tLHm1juE
-
+//Used to authenticate JWT
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require("../models/User");

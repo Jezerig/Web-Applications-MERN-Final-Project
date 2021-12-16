@@ -5,7 +5,7 @@ var logger = require('morgan');
 const mongoose = require("mongoose");
 var cors = require('cors');
 
-
+//localhost mongodb database
 const mongoDB = "mongodb://localhost:27017/webappdb";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
@@ -23,6 +23,7 @@ app.use(cookieParser());
 
 app.use('/api', apiRouter);
 
+//when in production website is hosted in localhost:1234 (server) with the client UI
 if(process.env.NODE_ENV === "production") {
     app.use(express.static(path.resolve("..", "client", "build")));
     app.get("*", (req, res) =>

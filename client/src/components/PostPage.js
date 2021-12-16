@@ -6,6 +6,8 @@ import {useNavigate} from 'react-router-dom';
 //source on how to use toasts: https://fkhadra.github.io/react-toastify/introduction
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function PostPage() {
     const navigate = useNavigate();
@@ -133,10 +135,15 @@ function PostPage() {
                 </ul>
             </div>
             {loggedIn && <div>
-                <form onSubmit={submit} onChange={handleChange}>
-                    <label>Text<input type="text" name="text" /></label>
-                    <input type="submit" />
-                </form>
+                <Form onSubmit={submit} onChange={handleChange}>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Comment Text</Form.Label>
+                        <Form.Control name="text" as="textarea" rows={3} required/>
+                    </Form.Group>
+                    <Button variant="dark" type="submit">
+                        Submit Comment
+                    </Button>
+                </Form>
             </div>}
         </div>
         

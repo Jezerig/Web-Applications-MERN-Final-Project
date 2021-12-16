@@ -121,8 +121,8 @@ function Register() {
                     <Form.Label>Bio</Form.Label>
                     <Form.Control as="textarea" rows={3} name="bio"/>
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
+                    <Button variant="dark" type="submit">
+                        Register
                     </Button>
                 </Form>
             </div>}

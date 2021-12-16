@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function Createpost() {
     const navigate = useNavigate();
@@ -37,12 +39,20 @@ function Createpost() {
             {!loggedIn && <h1>Can't create a Post whilst not logged in.</h1>}
             {loggedIn && <h1>Create a new Post.</h1>}
             {loggedIn && <div>
-                <form onSubmit={submit} onChange={handleChange}>
-                    <label>Title<input type="text" name="title" /></label>
-                    <label>Text<input type="text" name="text" /></label>
-                    <input type="submit" />
-                </form>
-            </div>}
+            <Form onSubmit={submit} onChange={handleChange}>
+                <Form.Group className="mb-3" >
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control name="title" type="text" placeholder="Post title" required/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Content</Form.Label>
+                    <Form.Control name="text" as="textarea" rows={3} required/>
+                </Form.Group>
+                <Button variant="dark" type="submit">
+                    Submit Post
+                </Button>
+            </Form>
+        </div>} 
         </div>
     )
 }

@@ -71,8 +71,8 @@ function Login() {
                         <Form.Label>Password</Form.Label>
                         <Form.Control name="password" type="password" placeholder="Password" required/>
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
+                    <Button variant="dark" type="submit">
+                        Login
                     </Button>
                 </Form>
             </div>}

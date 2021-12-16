@@ -92,8 +92,8 @@ function Register() {
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control name="password" type="password" placeholder="Password" required/>
-                        <Form.Text className="text-muted">
-                        <li>Password requirements:</li>
+                        <Form.Text className="ms-2 text-muted ">
+                        <h6>Password requirements:</h6>
                         <ul>
                             <li>at least one lowercase letter</li>
                             <li>at least one uppercase letter</li>

@@ -114,4 +114,15 @@ router.get('/posts', (req, res, next) => {
   });
 });
 
+router.get("/post/:id", (req, res, next) => {
+  Post.findOne({_id : req.params.id}, (err, post) => {
+      if(err) return next(err);
+      if(post) {
+          return res.send(post);
+      } else {
+          return res.status(404).send("Error loading post page.");
+      }
+  });
+})
+
 module.exports = router;

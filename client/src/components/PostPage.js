@@ -1,8 +1,10 @@
 import React from 'react'
 import {useState, useEffect} from 'react';
-import Post from './Post';
-function Posts() {
-    const [posts, setPosts] = useState([{
+import {useParams} from 'react-router-dom';
+
+function PostPage() {
+    const {postid} = useParams()
+    const [post, setPost] = useState([{
         "_id": null,
         "username": null,
         "userid": null,
@@ -14,29 +16,30 @@ function Posts() {
 
     useEffect(() => {
         let mounted = true;
-        async function fetchPosts() {
-            let url = '/api/posts';
+        async function fetchPost() {
+            let url = "/api/post/" + postid;
             let response = await fetch(url);
             let dataJson = await response.json();
             if (mounted) {
-                setPosts(dataJson);
+                setPost(dataJson);
             }
         }
-        fetchPosts();
+        fetchPost();
         return () => {
             mounted = false;
         };
-    }, [])
-    // Source map reverse: https://stackoverflow.com/questions/37664041/react-given-an-array-render-the-elements-in-reverse-order-efficiently
+    }, [postid])
+
+
     return (
         <div>
-            <ul>
-                {[...posts].reverse().map((post) => (
-                    <Post key={post._id} post={post}/>
-                ))}
-            </ul>
+            <p>{post.username}</p>
+            <h1>{post.title}</h1>
+            <p>{post.text}</p>
+            <p>{post.lastedited}</p>
+
         </div>
     )
 }
 
-export default Posts
+export default PostPage

@@ -1,8 +1,10 @@
 import React from 'react'
+import {useNavigate} from 'react-router-dom';
 
 function Post({post}) {
+    const navigate = useNavigate();
     return (
-        <div id={post._id}>
+        <div onClick={() => navigate('/post/' + post._id.toString())}>
             <p id={post.userid}>{post.username}</p>
             <p>{post.title}</p>
         </div>

@@ -6,7 +6,10 @@ import Register from './components/Register';
 import Createpost from './components/Createpost';
 import PostPage from './components/PostPage';
 import Userpage from './components/UserPage';
+import NotFoundPage from './components/NotFoundPage';
 import './App.css';
+
+//source not found page: https://stackoverflow.com/questions/49181678/404-page-in-react
 
 function App() {
   return (
@@ -20,6 +23,7 @@ function App() {
           <Route path="/createpost" element={<Createpost />} />
           <Route path="/post/:postid" element={<PostPage />} />
           <Route path="/user/:userid" element={<Userpage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </Router>

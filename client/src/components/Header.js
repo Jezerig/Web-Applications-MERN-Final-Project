@@ -4,13 +4,19 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import { Link as RouterLink} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 function Header() {
+    // source: https://stackoverflow.com/questions/53835816/decode-jwt-token-react
+    let user = null
+
     const navigate = useNavigate();
+
     //Render if-statement https://stackoverflow.com/questions/40477245/is-it-possible-to-use-if-else-statement-in-react-render-function
     let loggedIn = false;
     if(localStorage.getItem('token')) {
         loggedIn = true;
+        user = jwt_decode(localStorage.getItem('token'));
     }
     const logout = () => {
         if(loggedIn) {
@@ -27,7 +33,7 @@ return (
                     {!loggedIn && <Button component={RouterLink} to="/login" color="inherit">Login</Button>}
                     {!loggedIn && <Button component={RouterLink} to="/register" color="inherit">Register</Button>}
                     {loggedIn && <Button component={RouterLink} to="/createpost" color="inherit">Create Post</Button>}
-                    {loggedIn && <Button color="inherit">My Profile</Button>}
+                    {loggedIn && <Button component={RouterLink} to={"/user/" + user.id} color="inherit">My Profile</Button>}
                     {loggedIn && <Button onClick={logout} color="inherit">Logout</Button>}
                 </Toolbar>
             </AppBar>
@@ -35,5 +41,6 @@ return (
     </div>
 )
 }
+
 
 export default Header

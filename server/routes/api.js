@@ -11,6 +11,7 @@ const multer = require("multer")
 const storage = multer.memoryStorage();
 const upload = multer({storage});
 const Post = require("../models/Post");
+const Comment = require("../models/Comment");
 
 require('../auth/passport')(passport)
 //source: https://stackoverflow.com/questions/60034257/typeerror-req-login-is-not-a-function-passport-js
@@ -95,13 +96,25 @@ router.post('/newpost', passport.authenticate('jwt', {session: false}), (req, re
       username: req.user.username,
       userid: req.user._id,
       title: req.body.title,
-      text:req.body.text,
-      comments: []
+      text:req.body.text
   }).save((err) => {
       if(err) return next(err);
       return res.send("ok");
   });
 });
+
+router.post('/addcomment', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+  new Comment({
+      username: req.user.username,
+      userid: req.user._id,
+      postid: req.body.postid,
+      text:req.body.text
+  }).save((err) => {
+      if(err) return next(err);
+      return res.send("ok");
+  });
+});
+
 
 router.get('/posts', (req, res, next) => {
   Post.find({}, (err, posts) => {
@@ -113,6 +126,17 @@ router.get('/posts', (req, res, next) => {
     }
   });
 });
+
+router.get("/comment/:id", (req, res, next) => {
+  Comment.find({'postid' : req.params.id}, (err, comments) => {
+      if(err) return next(err);
+      if(comments) {
+          return res.send(comments);
+      } else {
+          return res.status(404).send("Error loading post comments.");
+      }
+  });
+})
 
 router.get("/post/:id", (req, res, next) => {
   Post.findOne({_id : req.params.id}, (err, post) => {

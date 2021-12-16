@@ -43,7 +43,7 @@ function Login() {
             {loggedIn && <h1>You're already logged in.</h1>}
             {!loggedIn && <div>
                 <form onSubmit={submit} onChange={handleChange}>
-                    <label>Username<input type="text" name="email" /></label>
+                    <label>Email<input type="text" name="email" /></label>
                     <label>Password<input type="password" name="password" /></label>
                     <input type="submit" />
                 </form>

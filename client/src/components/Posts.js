@@ -8,8 +8,7 @@ function Posts() {
         "userid": null,
         "lastedited": null,
         "title": null,
-        "text": null,
-        "comments": null
+        "text": null
       }]);
 
     useEffect(() => {

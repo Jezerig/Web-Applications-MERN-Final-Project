@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import Post from './Post';
 
+//Home page list of posts
 function Posts() {
     const [posts, setPosts] = useState([{
         "_id": null,
@@ -11,6 +12,7 @@ function Posts() {
         "text": null
       }]);
 
+    //fetches posts from /api/posts
     useEffect(() => {
         let mounted = true;
         async function fetchPosts() {

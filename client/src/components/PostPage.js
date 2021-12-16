@@ -10,18 +10,23 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+// Page for clicked post with comments
 function PostPage() {
+    //used to navigate to different url
     const navigate = useNavigate();
     // https://dev.to/alibahaari/how-to-re-fetch-data-when-something-changes-in-reactjs-375m
     // toggle used to inform page to re-fetch data when new comment is added.
     const [newCommentToggle, setNewCommentToggle] = useState(false);
+    //logged in status boolean
     let loggedIn = false;
     if(localStorage.getItem('token')) {
         loggedIn = true;
     }
 
+    //get postid from params
     const {postid} = useParams()
     
+    //comment that is POST to /api/addcomment
     const [comment, setComment] = useState([{
         "username": null,
         "userid": null,
@@ -30,6 +35,7 @@ function PostPage() {
         "text": null
       }]);
 
+    //Fetched comments from /api/comments for current post
     const [comments, setComments] = useState([{
         "_id": null,
         "username": null,
@@ -39,6 +45,7 @@ function PostPage() {
         "text": null
       }]);
 
+    //Clicked post
     const [post, setPost] = useState([{
         "_id": null,
         "username": null,
@@ -48,7 +55,8 @@ function PostPage() {
         "text": null,
         "comments": null
       }]);
-
+    
+    //Fetches post from /api/post/:id
     useEffect(() => {
         //if postid is shorter than required 24
         if(postid.length !== 24) {
@@ -77,7 +85,8 @@ function PostPage() {
         }
     // eslint-disable-next-line
     }, [])
-
+    //Fetches comments for current post
+    //Rerenders comments when new comment is added
     useEffect(() => {
         let mounted = true;
         async function fetchComments() {
@@ -98,10 +107,13 @@ function PostPage() {
     // eslint-disable-next-line
     }, [newCommentToggle])
 
+    //handles changes in new comment form
     const handleChange = (e) => {
         setComment({...comment, [e.target.name]: e.target.value})
     }
 
+    //on submit adds post to data base with POST /api/addcomment
+    //can only be done if authorized
     const submit = (e) => {
         e.preventDefault()
         comment.postid = postid
@@ -133,13 +145,16 @@ function PostPage() {
                 
             })
     }
-    // Source for registeration date parsing: https://www.tutorialguruji.com/react-js/why-do-i-get-rangeerror-date-value-is-not-finite-in-datetimeformat-format-when-using-intl-datetimeformat-in-react/
+    // Source for date parsing: https://www.tutorialguruji.com/react-js/why-do-i-get-rangeerror-date-value-is-not-finite-in-datetimeformat-format-when-using-intl-datetimeformat-in-react/
+    // ToastContainer is part of toasts
+    // react-bootstrap Card used to create UI
+    //if username is clicked navigate to /user/userid
     return (
         <div className="m-3">
             <ToastContainer />
             <div >
                 <Card border="primary">
-                    <Card.Body onClick={() => navigate('/post/' + post._id)}>
+                    <Card.Body>
                         <Card.Title>
                             {post.title}
                         </Card.Title>

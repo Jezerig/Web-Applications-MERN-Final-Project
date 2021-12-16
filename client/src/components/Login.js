@@ -11,13 +11,18 @@ import Button from 'react-bootstrap/Button';
 
 // source: https://www.youtube.com/watch?v=dJHnVB_6QUs
 function Login() {
+    //logged in status boolean
     let loggedIn = false;
     if(localStorage.getItem('token')) {
         loggedIn = true;
     }
 
     const [userData, setUserData] = useState({})
+    //used to navigate to different url
     const navigate = useNavigate();
+
+    //on form submit POST to /api/user/login to authenticate user
+    //creates toats on data.success = false (errors)
     const submit = (e) => {
         e.preventDefault()
         fetch("/api/user/login", {
@@ -50,11 +55,13 @@ function Login() {
             })
 
     }
-
+    // Handles change in form fields and saves to userData
     const handleChange = (e) => {
         setUserData({...userData, [e.target.name]: e.target.value})
     }
 
+    // Form created with react-bootstrap
+    //If user is logged in they can't see the login form
     return (
         <div className="m-3">
             <ToastContainer />

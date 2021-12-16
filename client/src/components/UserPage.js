@@ -3,9 +3,11 @@ import {useParams} from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import {useNavigate} from 'react-router-dom';
 
-
+//Single user page based on /user/userid
 function UserPage() {
+    //used to navigate to different url
     const navigate = useNavigate();
+
     const [user, setUser] = useState([{
         "_id": null,
         "username": null,
@@ -13,8 +15,11 @@ function UserPage() {
         "bio": null,
         "registerdate": null
       }]);
+    //gets userid from url
     const {userid} = useParams()
 
+    //fetches user from api 
+    //redirects to '/404' if user doesn't exist
     useEffect(() => {
         //if userid is shorter than required 24
         if(userid.length !== 24) {
@@ -42,6 +47,7 @@ function UserPage() {
     // eslint-disable-next-line
     }, [])
     // Source for registeration date parsing: https://www.tutorialguruji.com/react-js/why-do-i-get-rangeerror-date-value-is-not-finite-in-datetimeformat-format-when-using-intl-datetimeformat-in-react/
+    //UI card created with react-bootstrap
     return (
         <div className="m-3">
             <Card border="primary">

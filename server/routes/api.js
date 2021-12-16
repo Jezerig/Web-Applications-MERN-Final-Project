@@ -33,6 +33,7 @@ router.post('/user/login',
         if(isMatch) {
           const jwtPayload = {
             id: user._id,
+            username: user.username,
             email: user.email
           }
           jwt.sign(

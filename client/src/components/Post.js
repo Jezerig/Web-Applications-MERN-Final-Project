@@ -2,8 +2,11 @@ import React from 'react'
 import {useNavigate} from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 
+//Displays single post on '/'
 function Post({post}) {
+    //used to navigate to different url
     const navigate = useNavigate();
+    //if userename is clicked -> navigate to user's profile page
     return (
         <div>
             <Card border="dark">
@@ -25,4 +28,6 @@ function Post({post}) {
         </div>
     )
 }
+// Source for date parsing: https://www.tutorialguruji.com/react-js/why-do-i-get-rangeerror-date-value-is-not-finite-in-datetimeformat-format-when-using-intl-datetimeformat-in-react/
+
 export default Post

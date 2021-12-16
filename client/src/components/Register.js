@@ -6,14 +6,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+//registeration page
 function Register() {
+    //used to navigate to different url
     const navigate = useNavigate();
+    //logged in status boolean
     let loggedIn = false;
     if(localStorage.getItem('token')) {
         loggedIn = true;
     }
+
     const [userData, setUserData] = useState({})
 
+    //on form submit POST to /api/user/register to see if username and email are correct and not in use, and that the password is strong enough
+    //creates toasts on data.success = false (errors)
     const submit = (e) => {
         e.preventDefault()
 
@@ -69,10 +75,14 @@ function Register() {
 
     }
 
+    //handles changes in form fields and saves to userData
     const handleChange = (e) => {
         setUserData({...userData, [e.target.name]: e.target.value})
     }
 
+    //form created with react-bootstrap
+    //ToastContainer is part of toasts
+    //If user is logged in they can't register and don't see the form either
     return (
         <div className="m-3">
             <ToastContainer />

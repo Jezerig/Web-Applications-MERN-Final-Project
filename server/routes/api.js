@@ -132,9 +132,9 @@ router.get("/comment/:id", (req, res, next) => {
   Comment.find({'postid' : req.params.id}, (err, comments) => {
       if(err) return next(err);
       if(comments) {
-          return res.send(comments);
+          return res.send({success: true, comments});
       } else {
-          return res.status(404).send("Error loading post comments.");
+          return res.status(404).send({success: false, message: "Error loading post comments"});
       }
   });
 })
@@ -143,9 +143,9 @@ router.get("/post/:id", (req, res, next) => {
   Post.findOne({_id : req.params.id}, (err, post) => {
       if(err) return next(err);
       if(post) {
-          return res.send(post);
+          return res.send({success: true, post});
       } else {
-          return res.status(404).send("Error loading post page.");
+          return res.status(404).send({success: false, message: "Error loading post"});
       }
   });
 })
@@ -154,9 +154,9 @@ router.get("/user/:id", (req, res, next) => {
   User.findOne({_id : req.params.id}, (err, user) => {
       if(err) return next(err);
       if(user) {
-          return res.send(user);
+          return res.send({success: true, user});
       } else {
-          return res.status(404).send("Error loading user.");
+          return res.status(404).send({success: false, message: "Error loading user"});
       }
   });
 })

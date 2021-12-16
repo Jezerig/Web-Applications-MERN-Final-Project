@@ -21,6 +21,7 @@ function PostPage() {
     }
 
     const {postid} = useParams()
+    
     const [comment, setComment] = useState([{
         "username": null,
         "userid": null,
@@ -49,19 +50,31 @@ function PostPage() {
       }]);
 
     useEffect(() => {
-        let mounted = true;
-        async function fetchPost() {
-            let url = "/api/post/" + postid;
-            let response = await fetch(url);
-            let dataJson = await response.json();
-            if (mounted) {
-                setPost(dataJson);
+        //if postid is shorter than required 24
+        if(postid.length !== 24) {
+            navigate('/404')
+        } else {
+            let mounted = true;
+            async function fetchPost() {
+                let url = "/api/post/" + postid;
+                let response = await fetch(url);
+                let dataJson = await response.json();
+                if(dataJson.success) {
+                    if (mounted) {
+                        setPost(dataJson.post);
+                    }
+                } else {
+                    //if error loading post
+                    mounted = false;
+                    navigate('/404')  
+                }
+                
             }
+            fetchPost();
+            return () => {
+                mounted = false;
+            };
         }
-        fetchPost();
-        return () => {
-            mounted = false;
-        };
     // eslint-disable-next-line
     }, [])
 
@@ -71,8 +84,10 @@ function PostPage() {
             let url = '/api/comment/' + postid;
             let response = await fetch(url);
             let dataJson = await response.json();
-            if (mounted) {
-                setComments(dataJson);
+            if(dataJson.success) {
+                if (mounted) {
+                    setComments(dataJson.comments);
+                }
             }
         }
         fetchComments();
@@ -101,10 +116,10 @@ function PostPage() {
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 if(data.success) {
-                    console.log(data)
                     setNewCommentToggle(true)
-                } else {
+                } else {                
                     toast.error("Ran into an error.", {
                         position: "top-center",
                         autoClose: 5000,

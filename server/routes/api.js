@@ -26,7 +26,7 @@ router.post('/user/login',
     User.findOne({email: req.body.email}, (err, user) =>{
     if(err) throw err;
     if(!user) {
-      return res.send({message: "Invalid credentials"});
+      return res.send({success: false, message: "Invalid credentials"});
     } else {
       bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
         if(err) throw err;
@@ -46,7 +46,7 @@ router.post('/user/login',
             }
           );
         } else {
-          return res.status(403).json({message: "Invalid credentials"});
+          return res.status(403).json({success: false, message: "Invalid credentials"});
         }
       })
     }
@@ -59,15 +59,16 @@ router.post('/user/register',
   (req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
-      return res.status(400).json({errors: errors.array()});
+      return res.status(400).json({success: false, errors: errors.array()});
     }
-    User.findOne({email: req.body.email}, (err, user) => {
+    //checks if email or username is already in use: https://stackoverflow.com/questions/33627238/mongoose-find-with-multiple-conditions
+    User.findOne({$or:[{username: req.body.username}, {email: req.body.email}]}, (err, user) => {
       if(err) {
         console.log(err);
         throw err
       };
       if(user){
-        return res.status(403).json({message: "Email already in use"});
+        return res.status(403).json({success: false, message: "Email or Username already in use"});
       } else {
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -82,7 +83,7 @@ router.post('/user/register',
               },
               (err, ok) => {
                 if(err) throw err;
-                return res.redirect("/login");
+                return res.send({success: true, message: "New user registered."});
               }
             );
           });
@@ -99,7 +100,7 @@ router.post('/newpost', passport.authenticate('jwt', {session: false}), (req, re
       text:req.body.text
   }).save((err) => {
       if(err) return next(err);
-      return res.send("ok");
+      return res.send({success: true});
   });
 });
 
@@ -111,7 +112,7 @@ router.post('/addcomment', passport.authenticate('jwt', {session: false}), (req,
       text:req.body.text
   }).save((err) => {
       if(err) return next(err);
-      return res.send("ok");
+      return res.send({success: true});
   });
 });
 

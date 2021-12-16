@@ -18,6 +18,7 @@ function UserPage() {
             let response = await fetch(url);
             let dataJson = await response.json();
             if (mounted) {
+                console.log(dataJson);
                 setUser(dataJson);
             }
         }
@@ -27,12 +28,12 @@ function UserPage() {
         };
     // eslint-disable-next-line
     }, [])
-
+    // Source for registeration date parsing: https://www.tutorialguruji.com/react-js/why-do-i-get-rangeerror-date-value-is-not-finite-in-datetimeformat-format-when-using-intl-datetimeformat-in-react/
     return (
         <div>
             <ul> 
                 <li>Username: {user.username}</li>
-                <li>Register Date: {user.registerdate}</li>
+                {user.registerdate?.length > 0 && <li>Register Date: {new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeStyle: 'long' }).format(new Date(user.registerdate.toString()))}</li>}
                 <li>Bio: {user.bio}</li>
             </ul>
         </div>

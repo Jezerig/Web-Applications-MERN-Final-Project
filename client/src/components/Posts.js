@@ -28,12 +28,11 @@ function Posts() {
     }, [])
     // Source map reverse: https://stackoverflow.com/questions/37664041/react-given-an-array-render-the-elements-in-reverse-order-efficiently
     return (
-        <div>
-            <ul>
-                {[...posts].reverse().map((post) => (
-                    <Post key={post._id} post={post}/>
-                ))}
-            </ul>
+        <div className="m-3">
+            <h1>Posts</h1>
+            {[...posts].reverse().map((post) => (
+                <Post key={post._id} post={post}/>
+            ))}
         </div>
     )
 }

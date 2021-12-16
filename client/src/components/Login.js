@@ -56,7 +56,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className="m-3">
             <ToastContainer />
             {!loggedIn && <h1>Login</h1>}
             {loggedIn && <h1>You're already logged in.</h1>}

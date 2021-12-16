@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 function PostPage() {
     const navigate = useNavigate();
@@ -119,20 +120,31 @@ function PostPage() {
     }
     // Source for registeration date parsing: https://www.tutorialguruji.com/react-js/why-do-i-get-rangeerror-date-value-is-not-finite-in-datetimeformat-format-when-using-intl-datetimeformat-in-react/
     return (
-        <div>
+        <div className="m-3">
             <ToastContainer />
-            <div>
-                <p onClick={() => navigate('/user/' + post.userid)}>{post.username}</p>
-                <h1>{post.title}</h1>
-                <p>{post.text}</p>
-                {post.lastedited?.length > 0 && <p>{new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeStyle: 'long' }).format(new Date(post.lastedited.toString()))}</p>}
+            <div >
+                <Card border="primary">
+                    <Card.Body onClick={() => navigate('/post/' + post._id)}>
+                        <Card.Title>
+                            {post.title}
+                        </Card.Title>
+                        <Card.Text>
+                            {post.text}
+                        </Card.Text>
+                    </Card.Body>
+                    <Card.Footer>
+                    
+                    <small onClick={() => navigate('/user/' + post.userid)}>By: {post.username}</small>
+                    <br/>
+                    {post.lastedited?.length > 0 && <small>Last edited: {new Intl.DateTimeFormat('en-GB', { dateStyle: 'full', timeStyle: 'long' }).format(new Date(post.lastedited.toString()))}</small>}
+                    </Card.Footer>
+                </Card>
             </div>
-            <div>
-                <ul>
-                    {comments?.length > 0 ? comments.map((comment) => (
-                        <Comment key={comment._id} comment={comment}/>
-                    )) : "No comments."}
-                </ul>
+            <div className="ms-5 me-5 mb-5 mt-3">
+                <h2>Comments</h2>
+                {comments?.length > 0 ? comments.map((comment) => (
+                    <Comment key={comment._id} comment={comment}/>
+                )) : "No comments."}
             </div>
             {loggedIn && <div>
                 <Form onSubmit={submit} onChange={handleChange}>

@@ -74,23 +74,8 @@ function Register() {
     }
 
     return (
-        <div>
+        <div className="m-3">
             <ToastContainer />
-            {/* {!loggedIn && <h1>Register</h1>}
-            {loggedIn && <h1>Can't register whilst logged in.</h1>}
-            {!loggedIn && <div>
-                <form onSubmit={submit} onChange={handleChange}>
-                    <label>Username<input type="text" name="username" required/></label>
-                    <label>Email<input type="text" name="email" required/></label>
-                    <label>Password<input type="password" name="password" required/></label>
-                    <label>Bio<input type="text" name="bio" /></label>
-                    <input type="submit" />
-                </form>
-            </div>} */}
-
-
-
-
             {!loggedIn && <h1>Register</h1>}
             {loggedIn && <h1>Can't register whilst logged in.</h1>}
             {!loggedIn && 

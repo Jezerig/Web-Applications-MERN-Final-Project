@@ -35,9 +35,9 @@ function Createpost() {
     }
 
     return (
-        <div>
+        <div className="m-3">
             {!loggedIn && <h1>Can't create a Post whilst not logged in.</h1>}
-            {loggedIn && <h1>Create a new Post.</h1>}
+            {loggedIn && <h1>Create a new Post</h1>}
             {loggedIn && <div>
             <Form onSubmit={submit} onChange={handleChange}>
                 <Form.Group className="mb-3" >
